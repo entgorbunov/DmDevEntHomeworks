@@ -2,7 +2,7 @@ package com.dmdev.hw3;
 
 import java.util.Scanner;
 
-/*
+/**
 Даны 3 переменные:
 
 - operand1 (double)

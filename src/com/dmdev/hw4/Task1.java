@@ -1,5 +1,8 @@
 package com.dmdev.hw4;
 
+/**
+ * Написать программу, вычисляющую сумму цифр введённого пользователем целого числа.
+ */
 public class Task1 {
     public static void main(String[] args) {
         System.out.println(sum(9999));
