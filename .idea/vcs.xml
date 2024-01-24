@@ -2,5 +2,9 @@
 <project version="4">
   <component name="VcsDirectoryMappings">
     <mapping directory="" vcs="Git" />
+<<<<<<< HEAD
+=======
+    <mapping directory="$PROJECT_DIR$/DmDevEntHomeworks" vcs="Git" />
+>>>>>>> 39f547b (Add vcs.xml to version control)
   </component>
 </project>
