@@ -20,6 +20,7 @@ public class Task3 {
 
         int[] mergedValues = mergeArrays(values1, values2);
         System.out.println(Arrays.toString(mergedValues));
+
     }
 
     private static int[] mergeArrays(int[] values1, int[] values2) {
@@ -37,4 +38,6 @@ public class Task3 {
 
         return resultArray;
     }
+
+
 }
