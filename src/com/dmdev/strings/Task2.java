@@ -8,16 +8,16 @@ import java.util.Arrays;
  * Написать 2 метода:
  * <p>
  * - возвращающий массив цифр из переданной строки
- * - возвращающий сумму цифр из переданного целочисленного массива
+ * — возвращающий сумму цифр из переданного целочисленного массива
  * <p>
  * Посчитать сумму всех чисел из строки
  * <p>
  * Например:
- * “Привет 8, как 1 2 твои дела? Может4, сделать 3 дело?” -> 18 (8+1+2+4+3)
+ * ”Привет 8, как 1 2 твои дела? Может4, сделать 3 дело?” -> 18 (8+1+2+4+3)
  */
 public class Task2 {
     public static void main(String[] args) {
-        String value = "Привет 8, как 1 2 твои дела? Может4, сделать 3 дело?";
+        String value = "Привет, 8, как 1 2 твои дела? Может4, сделать 3 дело?";
         System.out.println(Arrays.toString(convertStringToIntArray(value)));
         var intArray = convertStringToIntArray(value);
         System.out.println(convertIntArrayToIntSum(intArray));
