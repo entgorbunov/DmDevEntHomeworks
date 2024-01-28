@@ -19,15 +19,15 @@ public class Task1 {
 
     public static void whatQuarter() {
         Scanner scanner = new Scanner(System.in);
-        System.out.println("Input minutes: ");
+        System.out.println("Введите минуты ");
         int minutes = scanner.nextInt();
 
         if (isValid(minutes)) {
-            if (minutes <= 15) System.out.println("First quarter");
-            else if (minutes <= 30) System.out.println("Second quarter");
-            else if (minutes <= 45) System.out.println("Third quarter");
-            else System.out.println("Fourth quarter");
-        } else System.out.println("Invalid minutes value");
+            if (minutes <= 15) System.out.println("Первая четверть");
+            else if (minutes <= 30) System.out.println("Вторая четверть");
+            else if (minutes <= 45) System.out.println("Третья четверть");
+            else System.out.println("Четвертая четверть");
+        } else System.out.println("Некорректное значение");
     }
 
     private static boolean isValid(int value) {
