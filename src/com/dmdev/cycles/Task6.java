@@ -1,4 +1,4 @@
-package com.dmdev.hw4;
+package com.dmdev.cycles;
 
 /**
  * Программист Ваня сразу после окончания курсов dmdev устроился в IT компанию на позицию Junior Java Developer с зарплатой 600$ в месяц.

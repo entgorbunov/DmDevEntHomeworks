@@ -1,4 +1,4 @@
-package com.dmdev.hw4;
+package com.dmdev.cycles;
 
 /**
  * Дано целое число.

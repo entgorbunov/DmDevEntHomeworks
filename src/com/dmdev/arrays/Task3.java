@@ -1,4 +1,4 @@
-package com.dmdev.hw5;
+package com.dmdev.arrays;
 
 import java.util.Arrays;
 

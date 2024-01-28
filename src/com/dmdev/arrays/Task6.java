@@ -1,4 +1,4 @@
-package com.dmdev.hw5;
+package com.dmdev.arrays;
 
 /**
  * Дан одномерный массив целых чисел.

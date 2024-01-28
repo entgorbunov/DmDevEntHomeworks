@@ -1,4 +1,4 @@
-package com.dmdev.hw5;
+package com.dmdev.arrays;
 
 public class Task1 {
 
