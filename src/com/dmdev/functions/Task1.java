@@ -3,92 +3,36 @@ package com.dmdev.functions;
 import java.util.Scanner;
 
 /**
- * Имеются три числа — день, месяц и год, вводимые пользователем с консоли.
- * Вывести дату следующего дня в формате "День. Месяц. Год".
- * Учесть переход на следующий месяц, а также следующий год.
- * Форматирование строки "День. Месяц. Год" вынести в отдельную функцию.
+ * В переменной minutes лежит число от 0 до 59.
+ * Написать функцию, которая принимает в качестве параметра значение переменной minutes и выводит на консоль
+ * в какую четверть часа попадает это число (в первую, вторую, третью или четвертую).
+ * <p>
+ * Протестировать функцию в main.
  */
 
-
 public class Task1 {
+
+
     public static void main(String[] args) {
+        whatQuarter();
+    }
+
+    public static void whatQuarter() {
         Scanner scanner = new Scanner(System.in);
-        System.out.println("Input day: ");
-        int day = scanner.nextInt();
+        System.out.println("Input minutes: ");
+        int minutes = scanner.nextInt();
 
-        System.out.println("Input month: ");
-        int month = scanner.nextInt();
-
-        System.out.println("Input year: ");
-        int year = scanner.nextInt();
-
-        if (isDateValid(day, month, year)) {
-            printNextDay(day, month, year);
-        } else {
-            System.out.println("Date is not correct");
-        }
+        if (isValid(minutes)) {
+            if (minutes <= 15) System.out.println("First quarter");
+            else if (minutes <= 30) System.out.println("Second quarter");
+            else if (minutes <= 45) System.out.println("Third quarter");
+            else System.out.println("Fourth quarter");
+        } else System.out.println("Invalid minutes value");
     }
 
-    public static boolean isDateValid(int day, int month, int year) {
-        if (day <= 0 || month <= 0 || month > 12 || year < 0) {
-            return false;
-        }
-
-        boolean result;
-        if (month == 2) {
-            if (isLeapYear(year)) {
-                result = day <= 29;
-            } else {
-                result = day <= 28;
-            }
-        } else if (month == 4 || month == 6 || month == 9 || month == 11) {
-            result = day <= 30;
-        } else {
-            result = day <= 31;
-        }
-
-        return result;
+    private static boolean isValid(int value) {
+        return value >= 0 && value <= 59;
     }
 
-    public static void printNextDay(int day, int month, int year) {
-        if (month == 2) {
-            if (isLeapYear(year)) {
-                if (day == 29) {
-                    System.out.println(formatDate(1, month + 1, year));
-                } else {
-                    System.out.println(formatDate(day + 1, month, year));
-                }
-            } else {
-                if (day == 28) {
-                    System.out.println(formatDate(1, month + 1, year));
-                } else {
-                    System.out.println(formatDate(day + 1, month, year));
-                }
-            }
-        } else if (month == 4 || month == 6 || month == 9 || month == 11) {
-            if (day == 30) {
-                System.out.println(formatDate(1, month + 1, year));
-            } else {
-                System.out.println(formatDate(day + 1, month, year));
-            }
-        } else {
-            if (day == 31) {
-                if (month == 12) {
-                    System.out.println(formatDate(1, 1, year + 1));
-                } else {
-                    System.out.println(formatDate(1, month + 1, year));
-                }
-            } else {
-                System.out.println(formatDate(day + 1, month, year));
-            }
-        }
-    }
 
-    public static String formatDate(int day, int month, int year) {
-        return day + "." + month + "." + year;
-    }
-
-    public static boolean isLeapYear(int year) {
-        return (year % 400 == 0) || ((year % 4 == 0) && (year % 100 != 0));
-    }
 }

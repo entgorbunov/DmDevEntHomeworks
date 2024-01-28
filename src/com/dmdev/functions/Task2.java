@@ -3,54 +3,47 @@ package com.dmdev.functions;
 import java.util.Scanner;
 
 /**
- * Написать программу, вычисляющую корни квадратного уравнения
- * вида ax ² + bx + c = 0, где a, b и c - вводимые пользователем из консоли
- * данные.
- * Учитывать только реальные корни (в случае отрицательного
- * дискриминанта выводить сообщение пользователю).
- * При решении создать и использовать следующие вынесенные
- * функции:
- * - функция isPositive, определяющая, является ли число
- * положительным
- * - функция isZero, определяющая, является ли число нулём
- * - функция discriminant, вычисляющая дискриминант
+Даны 3 переменные:
+
+- operand1 (double)
+- operand2 (double)
+- operation (char ‘+’, ‘-’, ‘*’, ‘/’, ‘%’)
+
+Написать функцию, которая принимает в качестве параметров эти три переменные и возвращает результат операции.
+Протестировать функцию в main.
+
+Например:
+Параметры: operand1 = 24.4, operand2 = 10.1, operation = ‘+’
+Результат: 34.5 (24.4 + 10.1)
  */
+
 public class Task2 {
 
     public static void main(String[] args) {
+        arithmeticFunction();
+    }
+
+    public static void arithmeticFunction() {
         Scanner scanner = new Scanner(System.in);
-        System.out.println("Input a: ");
-        int a = scanner.nextInt();
-
-        System.out.println("Input b: ");
-        int b = scanner.nextInt();
-
-        System.out.println("Input c: ");
-        int c = scanner.nextInt();
-
-        int discriminant = discriminant(a, b, c);
-        if (isPositive(discriminant)) {
-            double x1 = (-b + Math.sqrt(discriminant)) / (2 * a);
-            double x2 = (-b - Math.sqrt(discriminant)) / (2 * a);
-            System.out.println("x1: " + x1);
-            System.out.println("x2: " + x2);
-        } else if (isZero(discriminant)) {
-            double x = -b / (2 * (double) a);
-            System.out.println("x1: " + x);
-        } else {
-            System.out.println("Discriminant is negative");
+        System.out.println("Input first operand: ");
+        double operand1 = scanner.nextDouble();
+        System.out.println("Input operation: ");
+        String operation = scanner.next();
+        System.out.println("Input second operand: ");
+        double operand2 = scanner.nextDouble();
+        switch (operation) {
+            case "+" -> System.out.println(operand1 + operand2);
+            case "-" -> System.out.println(operand1 - operand2);
+            case "*" -> System.out.println(operand1 * operand2);
+            case "/" -> {
+                if (operand2 != 0) {
+                    System.out.println(operand1 / operand2);
+                } else {
+                    System.out.println("Ошибка: Деление на ноль.");
+                }
+            }
+            case "%" -> System.out.println(operand1 % operand2);
+            default -> System.out.println("Неверная операция: " + operation);
         }
-    }
-
-    public static int discriminant(int a, int b, int c) {
-        return b * b - 4 * a * c;
-    }
-
-    public static boolean isPositive(int value) {
-        return value > 0;
-    }
-
-    public static boolean isZero(int value) {
-        return value == 0;
     }
 }

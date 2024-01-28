@@ -3,36 +3,44 @@ package com.dmdev.functions;
 import java.util.Scanner;
 
 /**
- * В переменной minutes лежит число от 0 до 59.
- * Написать функцию, которая принимает в качестве параметра значение переменной minutes и выводит на консоль
- * в какую четверть часа попадает это число (в первую, вторую, третью или четвертую).
- * <p>
- * Протестировать функцию в main.
+ * Даны два прямоугольных треугольника.
+ * Каждый из них задается двумя целочисленными переменными a и b - стороны треугольника.
+ * Написать код, в котором вычисляется площадь каждого треугольника и затем эти площади сравниваются друг с другом.
+ *
+ * Для этого понадобится написать 2 функции.
+ * Первая: по двум сторонам прямоугольного треугольника возвращает его площадь.
+ * Вторая: сравнивает переданные площади двух треугольников и выводит на консоль первый треугольник больше, меньше или равен второму.
+ * Учитывать, что площадь может быть вещественным числом.
  */
-
 public class Task3 {
-
-
     public static void main(String[] args) {
-        whatQuarter();
-    }
-
-    public static void whatQuarter() {
         Scanner scanner = new Scanner(System.in);
-        System.out.println("Input minutes: ");
-        int minutes = scanner.nextInt();
+        System.out.println("Input value for first side of first triangular: ");
+        var value1 = scanner.nextDouble();
+        System.out.println("Input value for second side of first triangular: ");
+        var value2 = scanner.nextDouble();
+        System.out.println("Input value for first side of second triangular: ");
+        var value3 = scanner.nextDouble();
+        System.out.println("Input value for second side of second triangular: ");
+        var value4 = scanner.nextDouble();
 
-        if (isValid(minutes)) {
-            if (minutes <= 15) System.out.println("First quarter");
-            else if (minutes <= 30) System.out.println("Second quarter");
-            else if (minutes <= 45) System.out.println("Third quarter");
-            else System.out.println("Fourth quarter");
-        } else System.out.println("Invalid minutes value");
+        double area1 = calculateArea(value1, value2);
+        double area2 = calculateArea(value3, value4);
+
+        compareAreas(area1, area2);
     }
 
-    private static boolean isValid(int value) {
-        return value >= 0 && value <= 59;
+    public static double calculateArea(double a, double b) {
+        return (a * b) / 2.0;
     }
 
-
+    public static void compareAreas(double area1, double area2) {
+        if (area1 > area2) {
+            System.out.println("Первый треугольник больше второго.");
+        } else if (area1 < area2) {
+            System.out.println("Первый треугольник меньше второго.");
+        } else {
+            System.out.println("Треугольники равны.");
+        }
+    }
 }
