@@ -12,27 +12,30 @@ import java.util.Scanner;
 
 public class Task1 {
 
-
     public static void main(String[] args) {
         whatQuarter();
     }
 
     public static void whatQuarter() {
+        System.out.println("Введите минуты");
         Scanner scanner = new Scanner(System.in);
-        System.out.println("Введите минуты ");
         int minutes = scanner.nextInt();
-
-        if (isValid(minutes)) {
-            if (minutes <= 15) System.out.println("Первая четверть");
-            else if (minutes <= 30) System.out.println("Вторая четверть");
-            else if (minutes <= 45) System.out.println("Третья четверть");
-            else System.out.println("Четвертая четверть");
+        if (isRange(minutes, 0, 15))
+            System.out.println("Первая четверть");
+        else if (isRange(minutes, 16, 30)) {
+            System.out.println("Вторая четверть");
+        } else if (isRange(minutes, 31, 45)) {
+            System.out.println("Третья четверть");
+        } else if (isRange(minutes, 46, 60)) {
+            System.out.println("Четвертая четверть");
         } else System.out.println("Некорректное значение");
     }
 
-    private static boolean isValid(int value) {
-        return value >= 0 && value <= 59;
+    private static boolean isRange(int value, int begin, int endExcluded) {
+        return begin <= value && value < endExcluded;
     }
+
+
 
 
 }
