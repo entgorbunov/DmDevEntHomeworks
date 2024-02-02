@@ -1,58 +1,47 @@
 package com.dmdev.cycles;
 
-import java.util.Scanner;
-
 /**
-Написать программу, отображающую статистику по осадкам за N дней. N вводится пользователем.
-Пользователь также должен ввести N целых чисел, обозначающих величину осадков в день.
-
-Программа должна выводить:
-
-a. Количество дней
-b. Сумму осадков за этот период
-c. Среднее количество осадков за этот период
-d. Максимальное количество дневных осадков за этот период
-
-Не использовать массивы!
+ * Программист Ваня сразу после окончания курсов dmdev устроился в IT компанию на позицию Junior Java Developer с зарплатой 600$ в месяц.
+ * Ему обещали, что будут поднимать зарплату на 400$ каждые 6 месяцев.
+ * 300$ в месяц Ваня тратит на еду и развлечения.
+ * 10% от зарплаты Ваня ежемесячно переводит на счет брокера, чтобы инвестировать в акции с доходностью 2% в месяц.
+ * Посчитать, сколько Ваня будет иметь средств на своем счету и на счету брокера за 3 года и 2 месяца.
  */
 public class Task3 {
 
-
     public static void main(String[] args) {
-        Scanner scanner = new Scanner(System.in);
+        int months = 38; // 3 года и 2 месяца
+        double monthlySalary = 600.0; // Зарплата Вани в начале
+        double expenses = 300.0; // Расходы на еду и развлечения
+        double brokerPercentage = 0.10; // Доля для инвестиций на счет брокера
+        double brokerInterestRate = 0.02; // Доходность инвестиций на счету брокера
 
-        System.out.println("Введите количество дней: ");
-        int numberOfDays = scanner.nextInt();
+        double[] balances = calculateBalances(months, monthlySalary, expenses, brokerPercentage, brokerInterestRate);
 
-        if (numberOfDays <= 0) {
-            System.out.println("Количество дней должно быть положительным числом.");
-            return;
-        }
-
-
-
-        int totalRainfall = 0;
-        int maxRainfall = 0;
-
-        for (int i = 1; i <= numberOfDays; i++) {
-            System.out.println("Введите количество осадков за день " + i + ":");
-            int dailyRainfall = scanner.nextInt();
-
-            totalRainfall += dailyRainfall;
-            if (dailyRainfall > maxRainfall) {
-                maxRainfall = dailyRainfall;
-            }
-        }
-
-        double averageRainfall = (double) totalRainfall / numberOfDays;
-
-        System.out.println("Статистика по осадкам:");
-        System.out.println("a. Количество дней: " + numberOfDays);
-        System.out.println("b. Сумма осадков за этот период: " + totalRainfall);
-        System.out.println("c. Среднее количество осадков за этот период: " + averageRainfall);
-        System.out.println("d. Максимальное количество дневных осадков: " + maxRainfall);
+        System.out.println("Сумма на счету Вани: $" + balances[0]);
+        System.out.println("Сумма на счету брокера: $" + balances[1]);
     }
 
+    private static double[] calculateBalances(int months, double initialSalary, double expenses, double brokerPercentage, double brokerInterestRate) {
+        double monthlySalary = initialSalary;
+        double vanyaBalance = 0.0;
+        double brokerAccount = 0.0;
 
+        var roundedVanyaBalance = 0;
+        var roundedBrokerAccount = 0;
+        for (int month = 1; month <= months; month++) {
+            if (month % 6 == 0) {
+                monthlySalary += 400.0; // Увеличиваем зарплату каждые 6 месяцев
+            }
+            double monthlyInvestment = monthlySalary * brokerPercentage; // Получаем сумму из зарплаты на инвестиции
+            brokerAccount += monthlyInvestment * (1 + brokerInterestRate); // Рассчитываем доход от инвестиций
+            roundedBrokerAccount = (int) Math.round(brokerAccount);
+            monthlySalary -= monthlyInvestment; // Вычитаем долю на инвестиции
+            vanyaBalance += monthlySalary; // Добавляем зарплату
+            vanyaBalance -= expenses; // Вычитаем расходы
+            roundedVanyaBalance = (int) Math.round(vanyaBalance);
+        }
+
+        return new double[]{roundedVanyaBalance, roundedBrokerAccount};
+    }
 }
-

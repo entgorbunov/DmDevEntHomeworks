@@ -1,76 +1,55 @@
 package com.dmdev.cycles;
 
 /**
- * Написать программу, вычисляющую и отображающую все числа Фибоначчи меньше введённого пользователем целого числа.
- * Решить двумя способами: с помощью цикла и с помощью рекурсии.
+ * Дано целое число.
+ * Написать функцию, которая принимает целое число, а возвращает целое число обратное этому (не строку!).
+ * Результат вывести на 7консоль.
+ * Например: 4508 -> 8054, 4700 -> 74, 1234567 -> 7654321.
+ * <p>
+ * Примечание: для решения может понадобиться функция возведение числа в степень: Math.pow(число, степень)
  */
-
-import java.util.Scanner;
-
 public class Task2 {
     public static void main(String[] args) {
-        Scanner scanner = new Scanner(System.in);
-        System.out.println("Input threshold: ");
-        int threshold = scanner.nextInt();
-
-        printFibonacciRecursion(threshold);
-
+        System.out.println(reversed(-4508));
+        System.out.println(reversedWithMathPow(-4508));
     }
 
-    private static long fibNaive(int value) {
-        if (value <= 1) {
-            return value;
+    private static int reversed(int value) {
+        var reversed = 0;
+        for (reversed = 0; value != 0; value /= 10) {
+            var lastDigit = value % 10;
+            reversed = reversed * 10 + lastDigit;
+
         }
-        return fibNaive(value - 1) + fibNaive(value - 2);
+        return reversed;
     }
 
-    private static long fibEffective(int n) {
-        long[] arr = new long[n + 1];
-        arr[0] = 0;
-        arr[1] = 1;
-
-        for (int i = 2; i <= n; i++) {
-            arr[i] = arr[i - 1] + arr[i - 2];
+    private static int reversedWhile(int value) {
+        var reversed = 0;
+        while (value != 0) {
+            var lastDigit = value % 10;
+            reversed = reversed * 10 + lastDigit;
+            value /= 10;
         }
-        return arr[n];
+        return reversed;
     }
 
-    private static long fibWhile(int value) {
-        if (value <= 1) {
-            return value;
-        }
+    private static int reversedWithMathPow(int value) {
+        var reversed = 0;
+        var length = countDigitsWithString(value);
+        var temp = Math.abs(value);
 
-        long a = 0, b = 1;
-        for (int i = 2; i <= value; i++) {
-            long next = a + b;
-            a = b;
-            b = next;
+        while (temp != 0) {
+            int lastDigit = temp % 10;
+            reversed += (int) (lastDigit * Math.pow(10, length - 1)); //Умножаем последнюю цифру на 10 в степени, соответствующей позиции этой цифры.
+            temp /= 10;
+            length--;
         }
-        return b;
+        return reversed;
     }
 
-    public static void printFibonacci(int threshold) {
-        int first = 0;
-        int second = 1;
-        while (second < threshold) {
-            System.out.println(second);
-            int next = first + second;
-            first = second;
-            second = next;
-        }
-    }
-
-    public static void printFibonacciRecursion(int threshold) {
-        int first = 0;
-        int second = 1;
-        fibonacci(first, second, threshold);
-    }
-
-    public static void fibonacci(int first, int second, int threshold) {
-        if (second < threshold) {
-            System.out.println(second);
-            fibonacci(second, first + second, threshold);
-        }
+    public static int countDigitsWithString(int value) {
+        return String.valueOf(Math.abs(value)).length();
     }
 
 }
