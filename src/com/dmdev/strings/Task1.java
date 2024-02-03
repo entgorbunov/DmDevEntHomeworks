@@ -24,7 +24,9 @@ public class Task1 {
 
         for (int i = 0; i < value.length(); i++) {
             var currentChar = value.charAt(i);
-            if (currentChar != ' ' && (previousChar == Character.MIN_VALUE || Character.toLowerCase(currentChar) != Character.toLowerCase(previousChar))) {
+            if (currentChar != ' ' &&
+                (previousChar == Character.MIN_VALUE ||
+                 Character.toLowerCase(currentChar) != Character.toLowerCase(previousChar))) {
                 newString.append(currentChar);
                 previousChar = currentChar;
             }

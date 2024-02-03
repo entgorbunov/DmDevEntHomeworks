@@ -25,24 +25,34 @@ public class Task2 {
     }
 
     private static int[] convertStringToIntArray(String value) {
+        int count = countDigits(value);
+        int[] intArray = createIntArray(count);
+        populateIntArray(value, intArray);
+        return intArray;
+    }
 
+    private static int countDigits(String value) {
         int count = 0;
         for (int i = 0; i < value.length(); i++) {
             if (Character.isDigit(value.charAt(i))) {
                 count++;
             }
         }
+        return count;
+    }
 
-        var intArray = new int[count];
-        var index = 0;
+    private static int[] createIntArray(int count) {
+        return new int[count];
+    }
+
+    private static void populateIntArray(String value, int[] intArray) {
+        int index = 0;
         for (int i = 0; i < value.length(); i++) {
-            var currentChar = value.charAt(i);
+            char currentChar = value.charAt(i);
             if (Character.isDigit(currentChar)) {
                 intArray[index++] = Character.getNumericValue(currentChar);
-//                intArray[index++] = currentChar - '0';
             }
         }
-        return intArray;
     }
 
     private static int convertIntArrayToIntSum(int[] array) {
