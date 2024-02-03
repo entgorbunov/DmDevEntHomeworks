@@ -1,42 +1,74 @@
 package com.dmdev.arrays;
 
-import java.util.Arrays;
-
 /**
- * Заданы 2 массива целых чисел произвольной длины.
- * Написать программу, создающую третий массив, представляющий собой слияние 2-х заданных.
+ * Дан одномерный массив целых чисел.
+ *
+ * Написать функцию, которая принимает этот массив и разбивает на 3 других: с только отрицательными числами, только положительными и только нули.
+ * Если для какого-то из массивов не будет значений, то должен быть создан пустой массив.
+ * Возвращает функция эти три массива в виде одного двумерного.
  *
  * Пример:
- * 1-й массив: {1, 2, 3, 4, 5}
  *
- * 2-й массив: {5, 6, 7}
+ *                                          [-4, -18]
  *
- * Результат: {1, 5, 2, 6, 3, 7, 4, 5}
+ * [-4, 0, 1, 9, 0, -18, 3] -> [0, 0]
+ *
+ *                                          [1, 9, 3]
  */
 public class Task3 {
     public static void main(String[] args) {
-        int[] values1 = {1, 2, 3, 4, 5};
-        int[] values2 = {5, 6, 7};
+        int[] inputArray = {-4, 0, 1, 9, 0, -18, 3};
+        int[][] result = splitArray(inputArray);
 
-        int[] mergedValues = mergeArrays(values1, values2);
-        System.out.println(Arrays.toString(mergedValues));
-
+        printArray(result);
     }
 
-    private static int[] mergeArrays(int[] values1, int[] values2) {
-        int[] resultArray = new int[values1.length + values2.length];
-        for (int i = 0, index1 = 0, index2 = 0; i < resultArray.length; ) {
-            if (index1 < values1.length && index2 < values2.length) {
-                resultArray[i++] = values1[index1++];
-                resultArray[i++] = values2[index2++];
-            } else if (index1 < values1.length) {
-                resultArray[i++] = values1[index1++];
-            } else {
-                resultArray[i++] = values2[index2++];
+    public static void printArray(int[][] arrays) {
+        for (int[] array : arrays) {
+            for (int element : array) {
+                System.out.print(element + " ");
             }
+            System.out.println();
+        }
+    }
+
+    private static int countNegatives(int[] array) {
+        int count = 0;
+        for (int value : array) {
+            if (value < 0) count++;
+        }
+        return count;
+    }
+
+    private static int countZeros(int[] array) {
+        int count = 0;
+        for (int value : array) {
+            if (value == 0) count++;
+        }
+        return count;
+    }
+
+    private static int countPositives(int[] array) {
+        int count = 0;
+        for (int value : array) {
+            if (value > 0) count++;
+        }
+        return count;
+    }
+
+    private static int[][] splitArray(int[] array) {
+        int[] negatives = new int[countNegatives(array)];
+        int[] zeros = new int[countZeros(array)];
+        int[] positives = new int[countPositives(array)];
+
+        int negIndex = 0, zeroIndex = 0, positiveIndex = 0;
+        for (int value : array) {
+            if (value < 0) negatives[negIndex++] = value;
+            else if(value == 0) zeros[zeroIndex++] = value;
+            else positives[positiveIndex++] = value;
         }
 
-        return resultArray;
+        return new int[][]{negatives, zeros, positives};
     }
 
 

@@ -1,58 +1,46 @@
 package com.dmdev.arrays;
 
+import java.util.Arrays;
+
+/**
+ * Дан одномерный массив целых чисел.
+ * Написать функцию, удаляющую из него все отрицательные элементы (удалить — значит создать новый массив с только положительными элементами).
+ * После удаления — умножить каждый элемент массива на его длину.
+ * Например: [3, 5, -6, 3, 2, -9, 0, -123] -> [15, 25, 15, 10, 0]
+ * <p>
+ * Не забывать, что всю логику приложения нужно выносить в отдельные функции. Main - только для тестирования написанного функционала.
+ */
 public class Task1 {
 
     public static void main(String[] args) {
-        int[] array = {1, 2, 3, 4, 5}; // Исходный массив
-        System.out.println("Исходный массив: ");
-        printArray(array);
-
-
-        shiftLeft(array);
-
-        System.out.println("Массив после сдвига: ");
-        printArray(array);
+        int[] array = new int[]{3, 5, -6, 3, 2, -9, 0, -123};
+        int[] positiveValueArray = new int[]{3, 5, 3, 2, 0};
+        System.out.println(Arrays.toString(createPositiveValuesArray(array)));
+        System.out.println(Arrays.toString(multipleElementsArray(positiveValueArray)));
 
     }
 
-
-    public static void shiftRight(int[] array) {
-        if (array == null || array.length == 0) {
-            return;
-        }
-
-        int lastElement = array[array.length - 1]; // Сохраняем последний элемент
-
-        // Сдвигаем элементы массива
-        for (int i = array.length - 1; i > 0; i--) {
-            array[i] = array[i - 1];
-        }
-
-        // Вставляем последний элемент на первое место
-        array[0] = lastElement;
-    }
-
-    public static void shiftLeft(int[] array) {
-        if (array == null || array.length == 0) {
-            return;
-        }
-
-        int firstElement = array[0]; // Сохраняем первый элемент
-        for (int i = 0; i < array.length - 1; i++) {
-            array[i] = array[i + 1]; // Сдвигаем каждый элемент на одну позицию влево
-        }
-
-        array[array.length - 1] = firstElement; // Помещаем первый элемент в конец массива
-    }
-
-
-    // Метод для печати массива
-    public static void printArray(int[] array) {
+    private static int[] createPositiveValuesArray(int[] array) {
+        var positiveCount = 0;
         for (int value : array) {
-            System.out.print(value + " ");
+            if (value >= 0) {
+                positiveCount++;
+            }
         }
-        System.out.println();
+
+        int[] resultArray = new int[positiveCount];
+        int index = 0;
+        for (int value : array) {
+            if (value >= 0) {
+                resultArray[index++] = value;
+            }
+        }
+        return resultArray;
     }
 
-
+    private static int[] multipleElementsArray(int[] array) {
+        for (int i = 0; i < array.length; i++) {
+            array[i] *= array.length;
+        } return array;
+    }
 }
