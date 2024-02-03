@@ -19,7 +19,6 @@ public class Task1 {
                 int value = scanner.nextInt();
                 scanner.close();
 //                value = (value > 0) ? value : -value;
-
                 System.out.println("Четные цифры: " + sumOfEvenNumbers(value));
                 System.out.println("Нечетные цифры: " + sumOfOddNumbers(value));
                 break;
@@ -29,8 +28,6 @@ public class Task1 {
             }
         }
     }
-
-
     private static int sumOfEvenNumbers(int value) {
         int evenCount = 0;
         while (value != 0) {
@@ -39,7 +36,6 @@ public class Task1 {
         }
         return evenCount;
     }
-
     private static int sumOfOddNumbers(int value) {
         int oddCount = 0;
         for (; value != 0; value /= 10) {
