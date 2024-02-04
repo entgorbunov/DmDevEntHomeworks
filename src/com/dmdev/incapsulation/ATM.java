@@ -67,10 +67,6 @@ public class ATM {
         return Math.min(amount / billValue, quantity);
     }
 
-    protected int remainingAmount(int amount, int billValue, int quantity) {
-        return amount -= quantity * billValue;
-    }
-
     protected int calculateRequiredBills(int remainingAmount, int billValue, int quantity) {
         return Math.min(remainingAmount / billValue, quantity);
     }
