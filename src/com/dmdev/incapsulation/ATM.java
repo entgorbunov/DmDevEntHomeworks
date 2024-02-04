@@ -26,34 +26,28 @@ public class ATM {
         this.quantity10 = quantity10;
     }
 
-    public void addMoney(int addQuantity50, int addQuantity20, int addQuantity10) {
+    protected void addMoney(int addQuantity50, int addQuantity20, int addQuantity10) {
         this.quantity50 += addQuantity50;
         this.quantity20 += addQuantity20;
         this.quantity10 += addQuantity10;
         System.out.println("Добавлено в банкомат: 50x" + addQuantity50 + ", 20x" + addQuantity20 + ", 10x" + addQuantity10);
     }
 
-    public boolean withdrawMoney(int amount) {
-        if (amount <= 0 || amount > sumOfMoney()) {
-            System.out.println("Некорректная сумма или недостаточно средств.");
+    protected boolean withdrawMoney(int amount) {
+        if (isInvalidAmount(amount)) {
             return false;
         }
 
-        int required50 = Math.min(amount / 50, quantity50);
+        int required50 = calculateRequiredBillsAtStart(amount, 50, quantity50);
         int remainingAmount = amount - required50 * 50;
-
-        int required20 = Math.min(remainingAmount / 20, quantity20);
+        int required20 = calculateRequiredBills(remainingAmount, 20, quantity20);
         remainingAmount -= required20 * 20;
-
-        int required10 = Math.min(remainingAmount / 10, quantity10);
+        int required10 = calculateRequiredBills(remainingAmount, 10, quantity10);
         remainingAmount -= required10 * 10;
 
-        if (remainingAmount == 0) {
-            this.quantity50 -= required50;
-            this.quantity20 -= required20;
-            this.quantity10 -= required10;
-            System.out.println("Снято денег: 50x" + required50 + ", 20x" + required20 + ", 10x" + required10);
-            System.out.println("Осталось средств: " + sumOfMoney());
+        if (isRemainingAmountZero(remainingAmount)) {
+            updateQuantities(required50, required20, required10);
+            printWithdrawalDetails(required50, required20, required10);
             return true;
         } else {
             System.out.println("Невозможно выдать сумму в представленном виде банкнот.");
@@ -61,17 +55,48 @@ public class ATM {
         }
     }
 
-    int sumOfMoney() {
+    protected boolean isInvalidAmount(int amount) {
+        if (amount <= 0 || amount > sumOfMoney()) {
+            System.out.println("Некорректная сумма или недостаточно средств.");
+            return true;
+        }
+        return false;
+    }
+
+    protected int calculateRequiredBillsAtStart(int amount, int billValue, int quantity) {
+        return Math.min(amount / billValue, quantity);
+    }
+
+    protected int remainingAmount(int amount, int billValue, int quantity) {
+        return amount -= quantity * billValue;
+    }
+
+    protected int calculateRequiredBills(int remainingAmount, int billValue, int quantity) {
+        return Math.min(remainingAmount / billValue, quantity);
+    }
+
+    protected boolean isRemainingAmountZero(int remainingAmount) {
+        return remainingAmount == 0;
+    }
+
+    protected void updateQuantities(int required50, int required20, int required10) {
+        this.quantity50 -= required50;
+        this.quantity20 -= required20;
+        this.quantity10 -= required10;
+    }
+
+    protected void printWithdrawalDetails(int required50, int required20, int required10) {
+        System.out.println("Снято денег: 50x" + required50 + ", 20x" + required20 + ", 10x" + required10);
+        System.out.println("Осталось средств: " + sumOfMoney());
+    }
+
+    protected void printSumOfMoney() {
+        System.out.println("Средств на счету: " + sumOfMoney());
+    }
+
+    protected int sumOfMoney() {
         return quantity50 * 50 + quantity20 * 20 + quantity10 * 10;
     }
 
-    // Getters and setters for quantity10, quantity20, quantity50 are omitted for brevity
-
-    public static void main(String[] args) {
-        ATM atm = new ATM(0, 0, 0);
-        atm.addMoney(2, 3, 5); // Add some money to ensure there's enough for withdrawal
-        boolean result = atm.withdrawMoney(200); // This should now work as we have added money
-        System.out.println("Выдача прошла успешно: " + result);
-    }
 }
 
