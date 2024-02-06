@@ -13,10 +13,11 @@ public class Task3 {
         int months = 38; // 3 года и 2 месяца
         double monthlySalary = 600.0; // Зарплата Вани в начале
         double expenses = 300.0; // Расходы на еду и развлечения
+        double salaryIncrease = 400.0; // Сумма повышения зарплаты каждые 6 месяцев
         double brokerPercentage = 0.10; // Доля для инвестиций на счет брокера
         double brokerInterestRate = 0.02; // Доходность инвестиций на счету брокера
 
-        double[] balances = calculateBalances(months, monthlySalary, expenses, brokerPercentage, brokerInterestRate);
+        double[] balances = calculateBalances(months, monthlySalary, expenses, salaryIncrease, brokerPercentage, brokerInterestRate);
 
         System.out.println("Сумма на счету Вани: $" + balances[0]);
         System.out.println("Сумма на счету брокера: $" + balances[1]);
@@ -45,25 +46,26 @@ public class Task3 {
 //        return new double[]{roundedVanyaBalance, roundedBrokerAccount};
 //    }
 
-    private static double[] calculateBalances(int months, double initialSalary, double expenses, double brokerPercentage, double brokerInterestRate) {
+    private static double[] calculateBalances(int months, double initialSalary, double expenses, double salaryIncrease, double brokerPercentage, double brokerInterestRate) {
         double monthlySalary = initialSalary;
         double vanyaBalance = 0.0;
         double brokerAccount = 0.0;
 
-        var roundedVanyaBalance = 0;
-        var roundedBrokerAccount = 0;
         for (int month = 1; month <= months; month++) {
-            monthlySalary = increaseSalary(month, monthlySalary);
-            double monthlyInvestment = calculateMonthlyInvestment(monthlySalary, brokerPercentage);
-            brokerAccount = calculateBrokerAccount(brokerAccount, monthlyInvestment, brokerInterestRate);
-            roundedBrokerAccount = roundToInteger(brokerAccount);
-            monthlySalary = subtractMonthlyInvestment(monthlySalary, monthlyInvestment);
-            vanyaBalance = addMonthlySalary(vanyaBalance, monthlySalary);
-            vanyaBalance = subtractExpenses(vanyaBalance, expenses);
-            roundedVanyaBalance = roundToInteger(vanyaBalance);
+            if (month % 6 == 0) {
+                monthlySalary += salaryIncrease; // Повышаем зарплату с параметризированной суммой повышения
+            }
+            double monthlyInvestment = monthlySalary * brokerPercentage; // Сумма инвестиций
+            brokerAccount += monthlyInvestment * (1 + brokerInterestRate); // Расчет дохода на счету брокера
+            monthlySalary -= monthlyInvestment; // Вычитаем инвестиции из зарплаты
+            vanyaBalance += monthlySalary - expenses; // Добавляем оставшуюся зарплату после расходов
         }
 
-        return new double[]{roundedVanyaBalance, roundedBrokerAccount};
+
+        vanyaBalance = Math.round(vanyaBalance);
+        brokerAccount = Math.round(brokerAccount);
+
+        return new double[]{vanyaBalance, brokerAccount};
     }
 
     private static double increaseSalary(int month, double monthlySalary) {
