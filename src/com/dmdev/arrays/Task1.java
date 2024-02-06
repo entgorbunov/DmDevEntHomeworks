@@ -14,9 +14,7 @@ public class Task1 {
 
     public static void main(String[] args) {
         int[] array = new int[]{3, 5, -6, 3, 2, -9, 0, -123};
-        int[] positiveValueArray = new int[]{3, 5, 3, 2, 0};
-        System.out.println(Arrays.toString(createPositiveValuesArray(array)));
-        System.out.println(Arrays.toString(multipleElementsArray(positiveValueArray)));
+        System.out.println(Arrays.toString(multipleElementsArray(createPositiveValuesArray(array))));
 
     }
 
