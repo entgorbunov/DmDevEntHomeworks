@@ -18,9 +18,8 @@ import java.util.Arrays;
 public class Task2 {
     public static void main(String[] args) {
         String value = "Привет, 8, как 1 2 твои дела? Может4, сделать 3 дело?";
-        System.out.println(Arrays.toString(convertStringToIntArray(value)));
-        var intArray = convertStringToIntArray(value);
-        System.out.println(convertIntArrayToIntSum(intArray));
+        System.out.println("Полученный массив цифр: " + Arrays.toString(convertStringToIntArray(value)));
+        System.out.println("Сумма цифр = " + convertIntArrayToIntSum(convertStringToIntArray(value)));
 
     }
 
