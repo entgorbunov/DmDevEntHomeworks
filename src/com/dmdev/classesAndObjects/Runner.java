@@ -5,6 +5,8 @@ import com.dmdev.classesAndObjects.building.Floor;
 import com.dmdev.classesAndObjects.building.House;
 import com.dmdev.classesAndObjects.building.Room;
 
+import static com.dmdev.classesAndObjects.printer.Printer.printAllInformation;
+
 public class Runner {
 
     public static void main(String[] args) {
@@ -28,7 +30,5 @@ public class Runner {
         printAllInformation(house);
     }
 
-    public static void printAllInformation(House house) {
-        house.print();
-    }
+
 }
