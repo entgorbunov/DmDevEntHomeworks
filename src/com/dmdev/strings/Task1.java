@@ -8,6 +8,7 @@ package com.dmdev.strings;
  * Например:
  * "abc Cpddd Dio OsfWw" -> "ABCPDIOSFW"
  */
+
 public class Task1 {
     public static void main(String[] args) {
         String value = "abc Cpddd Dio OsfWw";
@@ -19,19 +20,21 @@ public class Task1 {
             return value;
         }
 
-        var newString = new StringBuilder();
-        var previousChar = Character.MIN_VALUE;
 
-        for (int i = 0; i < value.length(); i++) {
-            var currentChar = value.charAt(i);
-            if (currentChar != ' ' &&
-                (previousChar == Character.MIN_VALUE ||
-                 Character.toLowerCase(currentChar) != Character.toLowerCase(previousChar))) {
-                newString.append(currentChar);
-                previousChar = currentChar;
+        String upperCaseValue = value.toUpperCase().replace(" ", "");
+
+
+        String result = "";
+        char lastChar = 0;
+        for (int i = 0; i < upperCaseValue.length(); i++) {
+            char currentChar = upperCaseValue.charAt(i);
+            if (currentChar != lastChar) {
+                result += currentChar;
+                lastChar = currentChar;
             }
         }
-        return newString.toString().toUpperCase();
+
+        return result;
     }
 }
 
