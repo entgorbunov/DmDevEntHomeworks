@@ -1,8 +1,8 @@
 package com.DmDev.inheritanceAndPolymorphism;
 
-public class Planet extends CosmicObject{
-    private boolean hasRing;
-    private boolean hasLife;
+public abstract class Planet extends CosmicObject implements HasLife, HasRing {
+    private final boolean hasRing;
+    private final boolean hasLife;
 
     public Planet(double mass, double volume, String name, boolean hasRing, boolean hasLife) {
         super(mass, volume, name);
@@ -10,10 +10,12 @@ public class Planet extends CosmicObject{
         this.hasLife = hasLife;
     }
 
+    @Override
     public boolean isHasRing() {
         return hasRing;
     }
 
+    @Override
     public boolean isHasLife() {
         return hasLife;
     }

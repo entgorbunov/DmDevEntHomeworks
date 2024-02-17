@@ -1,6 +1,6 @@
 package com.DmDev.inheritanceAndPolymorphism;
 
-public abstract class CosmicObject implements Measurable {
+public abstract class CosmicObject implements Massive, Named, Volumetric, CalculateDistance {
 
     private double mass;
     private double volume;
@@ -16,7 +16,7 @@ public abstract class CosmicObject implements Measurable {
     }
 
     @Override
-    public double calculateDistance(Measurable measurable) {
+    public double calculateDistance(CalculateDistance measurable) {
         return 10;
     }
 
@@ -39,12 +39,6 @@ public abstract class CosmicObject implements Measurable {
     }
 
 
-    @Override
-    public String toString() {
-        return "Natural object " + name +
-               " mass = " + mass +
-               ", volume = " + volume;
-    }
 
     public double calculateDiameter() {
         double radius = Math.cbrt(3 * volume / (4 * Math.PI));
@@ -52,12 +46,6 @@ public abstract class CosmicObject implements Measurable {
     }
 
     public int compareMass(CosmicObject other) {
-        if (mass < other.mass) {
-            return -1;
-        } else if (mass > other.mass) {
-            return 1;
-        } else {
-            return 0;
-        }
+        return Double.compare(mass, other.mass);
     }
 }

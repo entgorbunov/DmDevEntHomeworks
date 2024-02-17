@@ -6,15 +6,15 @@ public class Earth extends Planet {
     private static final double VOLUME = 1.08321e12;
     private static final String NAME = "Earth";
 
-    // Единственный экземпляр класса
+
     private static Earth instance;
 
-    // Конструктор делаем private, чтобы предотвратить создание экземпляра извне
+
     private Earth() {
         super(MASS, VOLUME, NAME, false, true);
     }
 
-    // Метод для получения экземпляра
+
     public static Earth getInstance() {
         if (instance == null) {
             instance = new Earth();
@@ -24,13 +24,12 @@ public class Earth extends Planet {
 
     @Override
     public String toString() {
-        return "Earth{" +
-               "name=" + getName() +
-               ", mass=" + getMass() +
-               ", volume=" + getVolume() +
-               ", hasRing=" + isHasRing() +
-               ", hasLife=" + isHasLife() +
-               '}';
+        return "Planet Name: " + getName() + "\n" +
+               "Mass: " + getMass() + " kg\n" +
+               "Volume: " + getVolume() + " cubic km\n" +
+               "Has Ring: " + (isHasRing() ? "Yes" : "No") + "\n" +
+               "Has Life: " + (isHasLife() ? "Yes" : "No");
     }
+
 
 }

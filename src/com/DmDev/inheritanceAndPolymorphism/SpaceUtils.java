@@ -12,9 +12,9 @@ public class SpaceUtils {
         return G * object1.getMass() * object2.getMass() / Math.pow(distance, 2);
     }
 
-    public static boolean isStar(CosmicObject object) {
+    public static boolean isStar(Star object) {
 
-        return "Star".equals(object.getObjectType());
+        return "Star".equals(object);
     }
 }
 

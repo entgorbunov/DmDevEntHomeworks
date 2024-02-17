@@ -1,20 +1,18 @@
 package com.DmDev.inheritanceAndPolymorphism;
 
-public class Asteroid extends CosmicObject{
-    private int speed;
-    private boolean isDangerous;
+public abstract class Asteroid extends CosmicObject implements isDangerous {
+    private final double speed;
 
-    public Asteroid(int mass, int volume, String name, int speed, boolean isDangerous) {
+    public Asteroid(double mass, double volume, String name, double speed, boolean isDangerous) {
         super(mass, volume, name);
         this.speed = speed;
-        this.isDangerous = isDangerous;
     }
 
-    public int getSpeed() {
+    public double getSpeed() {
         return speed;
     }
 
-    public boolean isDangerous() {
-        return isDangerous;
-    }
+
+    @Override
+    public abstract boolean isDangerous();
 }
