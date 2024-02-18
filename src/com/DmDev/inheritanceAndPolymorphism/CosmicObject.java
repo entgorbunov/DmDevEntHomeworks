@@ -1,23 +1,18 @@
 package com.DmDev.inheritanceAndPolymorphism;
 
-public abstract class CosmicObject implements Massive, Named, Volumetric, CalculateDistance {
+public abstract class CosmicObject implements Massive, Named, Volumetric, SpatialProperties {
 
-    private double mass;
-    private double volume;
-    private String name;
-    private String objectType;
+    private final double mass;
+    private final double volume;
+    private final String name;
+    private final double distancetoEarth;
 
 
-    public CosmicObject(double mass, double volume, String name) {
+    public CosmicObject(double mass, double volume, String name, double distanceToEarth) {
         this.mass = mass;
         this.volume = volume;
         this.name = name;
-        this.objectType = objectType;
-    }
-
-    @Override
-    public double calculateDistance(CalculateDistance measurable) {
-        return 10;
+        this.distancetoEarth = distanceToEarth;
     }
 
     @Override
@@ -34,18 +29,9 @@ public abstract class CosmicObject implements Massive, Named, Volumetric, Calcul
     public String getName() {
         return name;
     }
-    public String getObjectType() {
-        return objectType;
-    }
 
 
 
-    public double calculateDiameter() {
-        double radius = Math.cbrt(3 * volume / (4 * Math.PI));
-        return 2 * radius;
-    }
 
-    public int compareMass(CosmicObject other) {
-        return Double.compare(mass, other.mass);
-    }
+
 }

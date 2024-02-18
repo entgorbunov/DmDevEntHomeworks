@@ -1,5 +1,5 @@
 package com.DmDev.inheritanceAndPolymorphism;
 
-public interface isDangerous {
+public interface Dangerous {
     boolean isDangerous();
 }

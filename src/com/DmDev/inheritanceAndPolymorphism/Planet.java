@@ -1,11 +1,13 @@
 package com.DmDev.inheritanceAndPolymorphism;
 
-public abstract class Planet extends CosmicObject implements HasLife, HasRing {
+import static com.DmDev.inheritanceAndPolymorphism.Moon.DISTANCE_TO_EARTH;
+
+public abstract class Planet extends CosmicObject implements PlanetaryFeatures {
     private final boolean hasRing;
     private final boolean hasLife;
 
     public Planet(double mass, double volume, String name, boolean hasRing, boolean hasLife) {
-        super(mass, volume, name);
+        super(mass, volume, name, DISTANCE_TO_EARTH);
         this.hasRing = hasRing;
         this.hasLife = hasLife;
     }

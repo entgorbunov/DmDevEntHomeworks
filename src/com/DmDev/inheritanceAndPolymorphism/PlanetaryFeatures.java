@@ -1,6 +1,8 @@
 package com.DmDev.inheritanceAndPolymorphism;
 
-public interface HasLife {
+public interface PlanetaryFeatures {
 
     boolean isHasLife();
+    boolean isHasRing();
+
 }

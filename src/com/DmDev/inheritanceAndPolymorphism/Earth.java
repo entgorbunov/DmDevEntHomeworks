@@ -4,7 +4,7 @@ public class Earth extends Planet {
 
     private static final double MASS = 5.972e24;
     private static final double VOLUME = 1.08321e12;
-    private static final String NAME = "Earth";
+    private static final String NAME = "Земля";
 
 
     private static Earth instance;
@@ -32,4 +32,8 @@ public class Earth extends Planet {
     }
 
 
+    @Override
+    public double calculateDistance() {
+        return 0;
+    }
 }
