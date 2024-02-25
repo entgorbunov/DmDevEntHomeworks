@@ -45,29 +45,29 @@ public class ATM {
         }
     }
 
-    public boolean isInvalidAmount(int amount) {
+    private boolean isInvalidAmount(int amount) {
         return amount <= 0 || amount > sumOfMoney();
     }
 
-    public int calculateRequiredBillsAtStart(int amount, int billValue, int quantity) {
+    private int calculateRequiredBillsAtStart(int amount, int billValue, int quantity) {
         return Math.min(amount / billValue, quantity);
     }
 
-    public int calculateRequiredBills(int remainingAmount, int billValue, int quantity) {
+    private int calculateRequiredBills(int remainingAmount, int billValue, int quantity) {
         return Math.min(remainingAmount / billValue, quantity);
     }
 
-    public boolean isRemainingAmountZero(int remainingAmount) {
+    private boolean isRemainingAmountZero(int remainingAmount) {
         return remainingAmount == 0;
     }
 
-    public void updateQuantities(int required50, int required20, int required10) {
+    private void updateQuantities(int required50, int required20, int required10) {
         this.quantity50 -= required50;
         this.quantity20 -= required20;
         this.quantity10 -= required10;
     }
 
-    public void printWithdrawalDetails(int required50, int required20, int required10) {
+    private void printWithdrawalDetails(int required50, int required20, int required10) {
         System.out.println("Снято денег: 50x" + required50 + ", 20x" + required20 + ", 10x" + required10);
         System.out.println("Осталось средств: " + sumOfMoney());
     }
@@ -76,7 +76,7 @@ public class ATM {
         System.out.println("Средств на счету: " + sumOfMoney());
     }
 
-    public int sumOfMoney() {
+    private int sumOfMoney() {
         return quantity50 * 50 + quantity20 * 20 + quantity10 * 10;
     }
     public void isWithdrawMoney(ATM atm) {
