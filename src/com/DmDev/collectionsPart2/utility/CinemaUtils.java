@@ -2,6 +2,7 @@ package com.DmDev.collectionsPart2.utility;
 
 import com.DmDev.collectionsPart2.base.Film;
 
+
 import java.util.*;
 
 public class CinemaUtils {
@@ -15,27 +16,26 @@ public class CinemaUtils {
         filmsForYear.add(film);
     }
 
-
     public static List<Film> getFilmsByYear(Map<Integer, List<Film>> filmsByYear, int year) {
         return filmsByYear.getOrDefault(year, Collections.emptyList());
     }
 
-    public static List<Film> getFilmsByYearAndMonth(Map<Integer, List<Film>> filmsByYear, int year, int month) {
+    public static <Month> List<Film> getFilmsByYearAndMonth(Map<Integer, List<Film>> filmsByYear, int year, Month month) {
         List<Film> result = new ArrayList<>();
         List<Film> films = getFilmsByYear(filmsByYear, year);
         for (Film film : films) {
-            if (film.getMonthOfRelease() == month) {
+            if (film.getMonthOfRelease() == month) { // Direct enum comparison
                 result.add(film);
             }
         }
         return result;
     }
 
-    public static List<Film> getFilmsByGenre(Map<Integer, List<Film>> filmsByYear, String genre) {
+    public static <Genre> List<Film> getFilmsByGenre(Map<Integer, List<Film>> filmsByYear, Genre genre) {
         List<Film> result = new ArrayList<>();
         for (List<Film> films : filmsByYear.values()) {
             for (Film film : films) {
-                if (film.getGenre().equalsIgnoreCase(genre)) {
+                if (film.getGenre() == genre) { // Direct enum comparison
                     result.add(film);
                 }
             }
@@ -65,4 +65,3 @@ public class CinemaUtils {
         return top10Films;
     }
 }
-
