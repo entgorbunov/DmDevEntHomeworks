@@ -7,7 +7,7 @@ import java.util.Iterator;
 import java.util.List;
 
 public class Utility {
-    public static void removeChatsWithFewUsers(List<Chat> chats) {
+    public static void removeChatsWithFewUsers(List<Chat> chats, int userThreshold) {
         Iterator<Chat> iterator = chats.iterator();
         while (iterator.hasNext()) {
             if (iterator.next().getUserCount() < 1000) {

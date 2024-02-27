@@ -5,9 +5,9 @@ import java.util.Objects;
 // Определение класса чата
 public class Chat {
     private String name;
-    private int userCount;
+    private Integer userCount;
 
-    public Chat(String name, int userCount) {
+    public Chat(String name, Integer userCount) {
         this.name = name;
         this.userCount = userCount;
     }
@@ -20,11 +20,11 @@ public class Chat {
         this.name = name;
     }
 
-    public int getUserCount() {
+    public Integer getUserCount() {
         return userCount;
     }
 
-    public void setUserCount(int userCount) {
+    public void setUserCount(Integer userCount) {
         this.userCount = userCount;
     }
 
