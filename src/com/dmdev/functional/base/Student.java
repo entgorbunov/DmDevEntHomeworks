@@ -1,6 +1,7 @@
 package com.dmdev.functional.base;
 
 import java.util.List;
+import java.util.Objects;
 
 public class Student {
     private String firstName;
@@ -46,6 +47,29 @@ public class Student {
 
     public List<Integer> getGrades() {
         return grades;
+    }
+
+    @Override
+    public String toString() {
+        return "Student{" +
+               "firstName='" + firstName + '\'' +
+               ", lastName='" + lastName + '\'' +
+               ", courseNumber=" + courseNumber +
+               ", grades=" + grades +
+               '}';
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        Student student = (Student) o;
+        return Objects.equals(firstName, student.firstName) && Objects.equals(lastName, student.lastName) && Objects.equals(courseNumber, student.courseNumber) && Objects.equals(grades, student.grades);
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(firstName, lastName, courseNumber, grades);
     }
 }
 

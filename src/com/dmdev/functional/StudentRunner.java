@@ -8,6 +8,8 @@ import java.util.List;
 import java.util.Map;
 import java.util.TreeMap;
 
+import static com.dmdev.functional.utility.StudentUtility.printStudents;
+
 public class StudentRunner {
     public static void main(String[] args) {
         List<Student> students = Arrays.asList(
@@ -19,15 +21,11 @@ public class StudentRunner {
                 new Student("Анна", "Анова", 3, Arrays.asList(4, 4, 4, 4))
         );
 
-        TreeMap<Integer, Object> processedStudents = StudentUtility.processStudents(students);
+        TreeMap<Integer, Map.Entry<List<String>, Double>> processedStudents = StudentUtility.processStudents(students);
 
-        processedStudents.forEach((course, value) -> {
-            Map.Entry<List<String>, Double> entry = (Map.Entry<List<String>, Double>) value;
-            System.out.println("Курс: " + course);
-            System.out.println("Студенты: " + entry.getKey());
-            System.out.println("Средняя оценка: " + entry.getValue());
-            System.out.println();
-        });
+        printStudents(processedStudents);
     }
+
+
 }
 
