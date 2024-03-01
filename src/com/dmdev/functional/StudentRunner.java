@@ -21,9 +21,7 @@ public class StudentRunner {
                 new Student("Анна", "Анова", 3, Arrays.asList(4, 4, 4, 4))
         );
 
-        TreeMap<Integer, Map.Entry<List<String>, Double>> processedStudents = StudentUtility.processStudents(students);
-
-        printStudents(processedStudents);
+        printStudents(StudentUtility.outputForStudents(students));
     }
 
 
