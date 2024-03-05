@@ -7,9 +7,6 @@ import com.dmdev.functional.utility.StudentUtility;
 import java.util.Arrays;
 import java.util.List;
 import java.util.Map;
-import java.util.TreeMap;
-
-import static com.dmdev.functional.utility.StudentUtility.*;
 
 public class StudentRunner {
     public static void main(String[] args) {
@@ -22,11 +19,11 @@ public class StudentRunner {
                 new Student("Анна", "Анова", 3, Arrays.asList(4, 4, 4, 4))
         );
 
-
-
-        printStudents(generateReportForStudents(students, 3));
+        // Получаем отсортированный список имен студентов по курсам
+        Map<Integer, List<String>> sortedStudentList = StudentUtility.coursesAndSortedStudentLists(students);
+        // Генерируем отчет с именами студентов и их средней оценкой по каждому курсу
+        Map<Integer, Report> report = StudentUtility.courseAndStudentNamesWithAverageGrade(sortedStudentList, students, 3);
+        // Выводим отчет
+        StudentUtility.printStudents(report);
     }
-
-
 }
-

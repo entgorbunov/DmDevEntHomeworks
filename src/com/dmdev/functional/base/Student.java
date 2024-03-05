@@ -72,5 +72,17 @@ public class Student {
     public int hashCode() {
         return Objects.hash(firstName, lastName, courseNumber, grades);
     }
+
+    public double getAverageGrade(List<Integer> grades) {
+        return grades.stream()
+                .mapToInt(Integer::intValue)
+                .average()
+                .orElseGet(() -> 0.0);
+    }
+
+    public String getFullName() {
+        return firstName + " " + lastName;
+    }
+
 }
 

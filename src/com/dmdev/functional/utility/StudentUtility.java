@@ -10,51 +10,38 @@ import java.util.stream.Collectors;
 public class StudentUtility {
 
 
-    public static Map<Integer, Report> generateReportForStudents(List<Student> students, int minMarksCount) {
-        List<Student> filteredStudents = filterStudentsByGradesCount(students, minMarksCount);
-        return groupStudentsByCourse(filteredStudents);
-    }
 
-    private static List<Student> filterStudentsByGradesCount(List<Student> students, int minMarksCount) {
+    public static Map<Integer, List<String>> coursesAndSortedStudentLists(List<Student> students) {
         return students.stream()
-                .filter(student -> student.getGrades().size() > minMarksCount)
-                .collect(Collectors.toList());
-    }
-
-
-    private static Map<Integer, Report> groupStudentsByCourse(List<Student> filteredStudents) {
-        Map<Integer, List<Student>> studentsByCourse = filteredStudents.stream()
-                .collect(Collectors.groupingBy(Student::getCourseNumber));
-
-        return studentsByCourse.entrySet().stream()
-                .collect(Collectors.toMap(
-                        Map.Entry::getKey,
-                        entry -> createReportForGroup(entry.getValue())
+                .sorted(Comparator.comparing(Student::getFullName))
+                .collect(Collectors.groupingBy(
+                        Student::getCourseNumber,
+                        Collectors.mapping(Student::getFullName, Collectors.toList())
                 ));
     }
 
+    public static Map<Integer, Report> courseAndStudentNamesWithAverageGrade(
+            Map<Integer, List<String>> sortedStudentList, List<Student> students, int minMarksCount) {
+        Map<Integer, List<Student>> filteredByGradesCount = students.stream()
+                .filter(s -> s.getGrades().size() > minMarksCount)
+                .collect(Collectors.groupingBy(Student::getCourseNumber));
 
-    private static Report createReportForGroup(List<Student> students) {
-        List<String> studentNames = sortAndConvertStudentNames(students);
-        double averageGrade = calculateAverageGradeForGroup(students);
-        return new Report(studentNames, averageGrade);
-    }
+        return filteredByGradesCount.entrySet().stream()
+                .collect(Collectors.toMap(
+                        integerListEntry -> integerListEntry.getKey(),
+                        entry -> {
+                            List<String> studentNames = sortedStudentList.get(entry.getKey());
+                            if (studentNames == null) {
+                                studentNames = new ArrayList<>();
+                            }
+                            double averageGrade = entry.getValue().stream()
+                                    .mapToDouble(s -> s.getAverageGrade(s.getGrades()))
+                                    .average()
+                                    .orElseGet(() -> 0.0);
 
-
-    private static List<String> sortAndConvertStudentNames(List<Student> students) {
-        return students.stream()
-                .sorted(Comparator.comparing(Student::getFirstName)
-                        .thenComparing(Student::getLastName))
-                .map(student -> student.getFirstName() + " " + student.getLastName())
-                .collect(Collectors.toList());
-    }
-
-
-    private static double calculateAverageGradeForGroup(List<Student> students) {
-        return students.stream()
-                .flatMapToInt(student -> student.getGrades().stream().mapToInt(Integer::intValue))
-                .average()
-                .orElseGet(() -> 0.0);
+                            return new Report(studentNames, averageGrade);
+                        }
+                ));
     }
 
 
