@@ -1,66 +1,72 @@
 package com.dmdev.functional.utility;
 
+import com.dmdev.functional.base.Report;
 import com.dmdev.functional.base.Student;
 
 import java.util.*;
 import java.util.stream.Collectors;
-import java.util.AbstractMap.SimpleEntry;
-import java.util.function.Function;
-import java.util.function.Predicate;
-import java.util.function.BinaryOperator;
+
 
 public class StudentUtility {
 
-    public static TreeMap<Integer, Map.Entry<List<String>, Double>> outputForStudents(List<Student> students) {
+
+    public static Map<Integer, Report> generateReportForStudents(List<Student> students, int minMarksCount) {
+        List<Student> filteredStudents = filterStudentsByGradesCount(students, minMarksCount);
+        return groupStudentsByCourse(filteredStudents);
+    }
+
+    private static List<Student> filterStudentsByGradesCount(List<Student> students, int minMarksCount) {
         return students.stream()
-                .collect(Collectors.groupingBy(
-                        Student::getCourseNumber,
-                        TreeMap::new,
-                        Collectors.collectingAndThen(
-                                Collectors.toList(),
-                                StudentUtility::createEntryFromStudentGroup
-                        )));
+                .filter(student -> student.getGrades().size() > minMarksCount)
+                .collect(Collectors.toList());
     }
 
-    private static Map.Entry<List<String>, Double> createEntryFromStudentGroup(List<Student> students) {
-        List<Student> sortedStudents = sortStudentsByName(students);
-        double averageGrade = calculateAverageGrade(students);
-        return new SimpleEntry<>(
-                convertToFullNameList(sortedStudents),
-                averageGrade
-        );
+
+    private static Map<Integer, Report> groupStudentsByCourse(List<Student> filteredStudents) {
+        Map<Integer, List<Student>> studentsByCourse = filteredStudents.stream()
+                .collect(Collectors.groupingBy(Student::getCourseNumber));
+
+        return studentsByCourse.entrySet().stream()
+                .collect(Collectors.toMap(
+                        Map.Entry::getKey,
+                        entry -> createReportForGroup(entry.getValue())
+                ));
     }
 
-    private static List<Student> sortStudentsByName(List<Student> students) {
+
+    private static Report createReportForGroup(List<Student> students) {
+        List<String> studentNames = sortAndConvertStudentNames(students);
+        double averageGrade = calculateAverageGradeForGroup(students);
+        return new Report(studentNames, averageGrade);
+    }
+
+
+    private static List<String> sortAndConvertStudentNames(List<Student> students) {
         return students.stream()
                 .sorted(Comparator.comparing(Student::getFirstName)
                         .thenComparing(Student::getLastName))
+                .map(student -> student.getFirstName() + " " + student.getLastName())
                 .collect(Collectors.toList());
     }
 
-    private static double calculateAverageGrade(List<Student> students) {
+
+    private static double calculateAverageGradeForGroup(List<Student> students) {
         return students.stream()
-                .filter(s -> s.getGrades().size() > 3)
-                .flatMapToInt(s -> s.getGrades()
-                        .stream()
-                        .mapToInt(Integer::intValue))
+                .flatMapToInt(student -> student.getGrades().stream().mapToInt(Integer::intValue))
                 .average()
-                .orElse(0);
+                .orElseGet(() -> 0.0);
     }
 
-    private static List<String> convertToFullNameList(List<Student> sortedStudents) {
-        return sortedStudents.stream()
-                .map(s -> s.getFirstName() + " " + s.getLastName())
-                .collect(Collectors.toList());
-    }
 
-    public static void printStudents(TreeMap<Integer, Map.Entry<List<String>, Double>> processedStudents) {
-        processedStudents.forEach((course, entry) -> {
+
+    public static void printStudents(Map<Integer, Report> processedStudents) {
+        processedStudents.forEach((course, report) -> {
             System.out.println("Курс: " + course);
-            System.out.println("Студенты: " + entry.getKey());
-            System.out.println("Средняя оценка: " + entry.getValue());
+            System.out.println("Студенты: " + String.join(", ", report.getStudentNames()));
+            System.out.println("Средняя оценка: " + report.getAverageGrade());
             System.out.println();
         });
     }
 }
+
 

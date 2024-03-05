@@ -1,5 +1,6 @@
 package com.dmdev.functional;
 
+import com.dmdev.functional.base.Report;
 import com.dmdev.functional.base.Student;
 import com.dmdev.functional.utility.StudentUtility;
 
@@ -8,7 +9,7 @@ import java.util.List;
 import java.util.Map;
 import java.util.TreeMap;
 
-import static com.dmdev.functional.utility.StudentUtility.printStudents;
+import static com.dmdev.functional.utility.StudentUtility.*;
 
 public class StudentRunner {
     public static void main(String[] args) {
@@ -21,7 +22,9 @@ public class StudentRunner {
                 new Student("Анна", "Анова", 3, Arrays.asList(4, 4, 4, 4))
         );
 
-        printStudents(StudentUtility.outputForStudents(students));
+
+
+        printStudents(generateReportForStudents(students, 3));
     }
 
 
