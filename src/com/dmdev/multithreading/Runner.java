@@ -3,6 +3,9 @@ package com.dmdev.multithreading;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
 
+import static com.dmdev.multithreading.utility.Utility.execute;
+import static com.dmdev.multithreading.utility.Utility.printCompetitionIsOver;
+
 public class Runner {
     public static void main(String[] args) {
         CrystalPlanet planet = new CrystalPlanet();
@@ -16,21 +19,6 @@ public class Runner {
         printCompetitionIsOver();
     }
 
-    public static void execute(FireMage fireMage, AirMage airMage) {
-        ExecutorService executor = Executors.newFixedThreadPool(2); // Создаем пул потоков для двух магов
 
-        executor.execute(fireMage);
-        executor.execute(airMage);
-
-        executor.shutdown();
-
-        while (!executor.isTerminated()) {
-
-        }
-    }
-
-    public static void printCompetitionIsOver() {
-        System.out.println("Соревнование завершено.");
-    }
 }
 
